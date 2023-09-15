@@ -1,4 +1,4 @@
-import express, {Application} from 'express'
+import express, {Application} from 'express';
 
 export default class Server {
   private app: Application;
