@@ -10,7 +10,10 @@ export const options = {
       description: 'API Documentation',
     },
   },
+  // apis: [
+  //   './src/routes/**/*.ts',
+  // ], 
   apis: [
-    './src/routes/**/*.ts',
-  ], 
+    './src/doc/**/*.ts',
+  ],
 };

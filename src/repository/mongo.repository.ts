@@ -7,4 +7,8 @@ export class MongoRepository {
     return book;
   }
 
+  async bringAllBooks() {
+    const allBooks = await bookModel.find();
+    return allBooks;
+  }
 }

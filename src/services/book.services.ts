@@ -13,4 +13,9 @@ export class BookUseCase {
     return bookCreated;
   };
 
+  public getAllBooks = async() => {
+    const allBooks = await this.mongoRepository.bringAllBooks();
+    return allBooks;
+  };
+
 }

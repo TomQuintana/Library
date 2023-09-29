@@ -11,11 +11,21 @@ const registerBook = async (req: Request, res: Response) => {
 
   } catch (error) {
     console.log(error);
-    
   }
+};
+
+const bringAllBooks = async (req: Request, res: Response) => {
   
+  try {
+    const allBooks = await bookUseCase.getAllBooks();
+    res.send({allBooks});
+
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export {
-  registerBook
+  registerBook,
+  bringAllBooks
 };
