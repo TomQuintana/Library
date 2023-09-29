@@ -1,4 +1,7 @@
 import express, {Application} from 'express';
+import swaggerJSDoc from 'swagger-jsdoc';
+import  SwaggerUi, { SwaggerOptions} from 'swagger-ui-express';
+import { options } from '../doc/swagger';
 import bookRoute from '../routes/book.routes';
 import conectarDB from '../config/mongoDb';
 
@@ -6,13 +9,16 @@ export default class Server {
   private app: Application;
   private port: string;
   paths:{ [key: string]: string };
+  spect: SwaggerOptions;
 
   constructor() {
     this.app = express();
     this.port = '3000';
+    this.spect = swaggerJSDoc(options);
 
     this.paths = {
-      book: '/api/books'
+      book: '/api/books',
+      docs: '/api/docs'
     };
 
     this.middlewares();
@@ -22,6 +28,7 @@ export default class Server {
 
   middlewares() {
     this.app.use( express.json() );
+    this.app.use(this.paths.docs, SwaggerUi.serve, SwaggerUi.setup(this.spect));
   }
 
   async conectDB() {
@@ -30,7 +37,7 @@ export default class Server {
 
   listen() {
     this.app.listen( this.port, () => {
-      console.log('Servidor corriendo ');
+      console.log('Servidor corriendo en:', this.port);
     });
   }
 
