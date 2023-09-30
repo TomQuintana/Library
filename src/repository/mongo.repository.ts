@@ -11,4 +11,9 @@ export class MongoRepository {
     const allBooks = await bookModel.find();
     return allBooks;
   }
+
+  async findBookByTitle(title: string) {
+    const searchedBook = await bookModel.findOne({title});
+    return searchedBook;
+  }
 }
