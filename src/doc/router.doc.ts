@@ -22,4 +22,8 @@
  *  get:
  *    summary: Obtain all books
  *
+ * /api/books/filter/{wasRead}:
+ *  get:
+ *    summary: Filter books by status of was read
+ *
  */
