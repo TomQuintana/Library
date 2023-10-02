@@ -30,8 +30,18 @@ const filterBook = async (req: Request, res: Response) => {
   return res.send({bookResult});
 };
 
+const modifyBook = async (req: Request, res: Response) => {
+  const {id} = req.params;
+  const {body} = req;
+
+  const bookResultModified = await bookUseCase.modifyBookById(id, body);
+  return res.json({msg: `Book "${bookResultModified?.title}" modified`});
+};
+
+
 export {
   registerBook,
   bringAllBooks,
-  filterBook
+  filterBook,
+  modifyBook
 };

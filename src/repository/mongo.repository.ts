@@ -21,4 +21,9 @@ export class MongoRepository {
     const bookByStatus = await bookModel.find({wasRead: status});
     return bookByStatus;
   }
+
+  async modifyBookStatus(id: string, data: object) {
+    const bookModified= await bookModel.findByIdAndUpdate(id, data);
+    return bookModified;
+  }
 }

@@ -41,4 +41,9 @@ export class BookUseCase {
     return bookResult;
   };
 
+  public modifyBookById = async (id: string, data: object) => {
+    const bookModified = await this.mongoRepository.modifyBookStatus(id, data);
+    return bookModified;
+  };
+
 }
