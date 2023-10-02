@@ -5,7 +5,6 @@ export class BookUseCase {
   mongoRepository = new MongoRepository();
   
   public registerBook = async({title, author, wasRead}: {title: string, author: string, wasRead?: boolean}) => {
-
     const verifyIfBookExist = await this.isBookExisted(title);
 
     if(verifyIfBookExist) {
@@ -35,6 +34,11 @@ export class BookUseCase {
   private isBookExisted = async(tittle: string) => {
     const book = await this.searchBookByTittle(tittle);
     return book;
+  };
+
+  public filterBookByParamenter = async (filterParameter: string) => {
+    const bookResult = await this.mongoRepository.SearchBookByStatus(filterParameter);
+    return bookResult;
   };
 
 }

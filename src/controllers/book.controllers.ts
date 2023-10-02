@@ -25,7 +25,13 @@ const bringAllBooks = async (req: Request, res: Response) => {
   }
 };
 
+const filterBook = async (req: Request, res: Response) => {
+  const bookResult = await bookUseCase.filterBookByParamenter(req.params.parameter);
+  return res.send({bookResult});
+};
+
 export {
   registerBook,
-  bringAllBooks
+  bringAllBooks,
+  filterBook
 };
