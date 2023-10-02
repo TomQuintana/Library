@@ -16,4 +16,9 @@ export class MongoRepository {
     const searchedBook = await bookModel.findOne({title});
     return searchedBook;
   }
+
+  async SearchBookByStatus(status: string) {
+    const bookByStatus = await bookModel.find({wasRead: status});
+    return bookByStatus;
+  }
 }
