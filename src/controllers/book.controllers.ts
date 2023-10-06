@@ -7,6 +7,13 @@ const registerBook = async (req: Request, res: Response) => {
   
   try {
     const book = await bookUseCase.registerBook(req.body);
+
+    if (book) {
+      return res.status(400).json({
+        msg: "The book is already saved"
+      });
+    }
+    
     return res.send({book});
 
   } catch (error) {
