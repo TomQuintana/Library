@@ -4,11 +4,11 @@ export class BookUseCase {
 
   mongoRepository = new MongoRepository();
 
-  public registerBook = async({title, author, wasRead}: {title: string, author: string, wasRead?: boolean}) => {
+  public createNewBook= async({title, author, wasRead}: {title: string, author: string, wasRead?: boolean}) => {
     const verifyIfBookExist = await this.isBookExisted(title);
 
-    if(verifyIfBookExist) {
-      return new Error('The book is already saved');
+    if(!verifyIfBookExist) {
+      return verifyIfBookExist;
     }
 
     const newBook = {
@@ -32,13 +32,13 @@ export class BookUseCase {
   };
 
   private isBookExisted = async(tittle: string) => {
-    let isBookexist = false;
+    let isBookExist = false;
 
     const book = await this.searchBookByTittle(tittle);
 
-    book ? isBookexist = true : isBookexist = false;
+    book === null ? isBookExist = true: isBookExist = false;
     
-    return isBookexist;
+    return isBookExist;
   };
 
   public filterBookByParamenter = async (filterParameter: string) => {
