@@ -4,6 +4,7 @@ interface IBook{
   title: string;
   author: string;
   wasRead: boolean;
+  review: string;
 }
 
 const BookSchema = new Schema<IBook>({
@@ -19,6 +20,11 @@ const BookSchema = new Schema<IBook>({
     type: Boolean,
     default: false
   },
+  review: {
+    type: String,
+    default: '',
+    required: false
+  }
 });
 
 export default model('Library', BookSchema);
