@@ -43,14 +43,34 @@ export class BookUseCase {
     return isBookExist;
   };
 
+  private searchBookId = async (bookId: string) => {
+    const bookSearchedById = await this.mongoRepository.searchBookById(bookId);
+    if(bookSearchedById === null) {
+      return false;
+    }
+    return true;
+  };
+
   public filterBookByParamenter = async (filterParameter: string) => {
     const bookResult = await this.mongoRepository.SearchBookByStatus(filterParameter);
     return bookResult;
   };
 
   public modifyBookById = async (id: string, data: object) => {
-    const bookModified = await this.mongoRepository.modifyBookStatus(id, data);
-    return bookModified;
+
+    const verifyBookByIdFounded = await this.searchBookId(id);
+    
+    if(!verifyBookByIdFounded) {
+      return verifyBookByIdFounded;
+    }
+
+    try {
+      const bookModified = await this.mongoRepository.modifyBookStatus(id, data);
+      return bookModified;  
+
+    } catch (error) {
+      console.log(error);
+    }
   };
 
 }
