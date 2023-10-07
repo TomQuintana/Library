@@ -16,10 +16,15 @@
  *              type: string
  *            author:
  *              type: string
+ *            wasRead:
+ *              type: boolean
+ *            bookCover:
+ *              type: string
  *          example:
  *              title: "Magos de los Dioses"
  *              author: "Graham Hancock"
  *              wasRead: by default is false
+ *              bookCover: by default a standart img or img that user pass
  * /api/books/:
  *  get:
  *    summary: Obtain all books
@@ -34,7 +39,7 @@
  *
  * /api/books/modify/{id}:
  *   put:
- *     summary: Modify a books status
+ *     summary: Modify necessary fields of books, like title, author, was Read and book Cover
  *     tags: 
  *      - Book
  *     parameters:
