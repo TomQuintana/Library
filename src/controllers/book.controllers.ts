@@ -41,7 +41,14 @@ const modifyBook = async (req: Request, res: Response) => {
   const {body} = req;
 
   const bookResultModified = await bookUseCase.modifyBookById(id, body);
-  return res.json({msg: `Book "${bookResultModified?.title}" modified`});
+
+  if (!bookResultModified) {
+    return res.status(400).json({
+      msg: "The past id does not correspond to any book"
+    });
+  }
+
+  return res.json({bookResultModified});
 };
 
 
