@@ -4,17 +4,16 @@ import { BookUseCase } from "../services/book.services";
 const bookUseCase = new BookUseCase();
 
 const registerBook = async (req: Request, res: Response) => {
-  
   try {
-    const book = await bookUseCase.registerBook(req.body);
+    const newBook = await bookUseCase.createNewBook(req.body);
 
-    if (book) {
+    if (!newBook) {
       return res.status(400).json({
         msg: "The book is already saved"
       });
     }
     
-    return res.send({book});
+    return res.send({newBook});
 
   } catch (error) {
     console.log(error);
