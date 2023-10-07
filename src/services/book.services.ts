@@ -4,7 +4,7 @@ export class BookUseCase {
 
   mongoRepository = new MongoRepository();
 
-  public createNewBook= async({title, author, wasRead}: {title: string, author: string, wasRead?: boolean}) => {
+  public createNewBook= async({title, author, wasRead, review, bookCover}: {title: string, author: string, wasRead?: boolean, review?: string, bookCover?: string}) => {
     const verifyIfBookExist = await this.isBookExisted(title);
 
     if(!verifyIfBookExist) {
@@ -14,7 +14,9 @@ export class BookUseCase {
     const newBook = {
       title,
       author,
-      wasRead
+      wasRead,
+      review,
+      bookCover
     };
 
     const bookCreated = await this.mongoRepository.createBook(newBook);
