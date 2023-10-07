@@ -22,6 +22,11 @@ export class MongoRepository {
     return bookByStatus;
   }
 
+  async searchBookById(bookId: string) {
+    const bookResultById = await bookModel.findById(bookId);
+    return bookResultById;
+  }
+
   async modifyBookStatus(id: string, data: object) {
     const bookModified= await bookModel.findByIdAndUpdate(id, data);
     return bookModified;
