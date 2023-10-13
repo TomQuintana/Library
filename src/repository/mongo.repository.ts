@@ -31,4 +31,9 @@ export class MongoRepository {
     const bookModified= await bookModel.findByIdAndUpdate(id, data);
     return bookModified;
   }
+
+  async removeBook(id: string) {
+    const bookDeleted = await bookModel.findByIdAndDelete(id);
+    return bookDeleted;
+  }
 }

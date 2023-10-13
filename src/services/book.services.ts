@@ -73,4 +73,9 @@ export class BookUseCase {
     }
   };
 
+  public removeBookById = async (id: string) => {
+    const bookRemoved = await this.mongoRepository.removeBook(id);
+    return bookRemoved;
+  };
+
 }

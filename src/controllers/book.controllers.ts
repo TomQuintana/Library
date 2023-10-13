@@ -51,10 +51,25 @@ const modifyBook = async (req: Request, res: Response) => {
   return res.json({bookResultModified});
 };
 
+const removeBook = async (req:Request, res: Response) => {
+  const { bookId } = req.params;
+  const bookRemove = await bookUseCase.removeBookById(bookId);
+
+  if (!bookRemove) {
+    return res.status(400).json({
+      msg: "The past id does not correspond to any book"
+    });
+  }
+
+  return res.json({bookRemove});
+
+};
+
 
 export {
   registerBook,
   bringAllBooks,
   filterBook,
-  modifyBook
+  modifyBook,
+  removeBook
 };
