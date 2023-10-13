@@ -3,18 +3,20 @@ import { MongoRepository } from "../repository/mongo.repository";
 export class BookUseCase {
 
   mongoRepository = new MongoRepository();
-  
-  public registerBook = async({title, author, wasRead}: {title: string, author: string, wasRead?: boolean}) => {
+
+  public createNewBook= async({title, author, wasRead, review, bookCover}: {title: string, author: string, wasRead?: boolean, review?: string, bookCover?: string}) => {
     const verifyIfBookExist = await this.isBookExisted(title);
 
-    if(verifyIfBookExist) {
-      throw new Error('The book is already saved');
+    if(!verifyIfBookExist) {
+      return verifyIfBookExist;
     }
 
     const newBook = {
       title,
       author,
-      wasRead
+      wasRead,
+      review,
+      bookCover
     };
 
     const bookCreated = await this.mongoRepository.createBook(newBook);
@@ -32,8 +34,21 @@ export class BookUseCase {
   };
 
   private isBookExisted = async(tittle: string) => {
+    let isBookExist = false;
+
     const book = await this.searchBookByTittle(tittle);
-    return book;
+
+    book === null ? isBookExist = true: isBookExist = false;
+    
+    return isBookExist;
+  };
+
+  private searchBookId = async (bookId: string) => {
+    const bookSearchedById = await this.mongoRepository.searchBookById(bookId);
+    if(bookSearchedById === null) {
+      return false;
+    }
+    return true;
   };
 
   public filterBookByParamenter = async (filterParameter: string) => {
@@ -42,8 +57,25 @@ export class BookUseCase {
   };
 
   public modifyBookById = async (id: string, data: object) => {
-    const bookModified = await this.mongoRepository.modifyBookStatus(id, data);
-    return bookModified;
+
+    const verifyBookByIdFounded = await this.searchBookId(id);
+    
+    if(!verifyBookByIdFounded) {
+      return verifyBookByIdFounded;
+    }
+
+    try {
+      const bookModified = await this.mongoRepository.modifyBookStatus(id, data);
+      return bookModified;  
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  public removeBookById = async (id: string) => {
+    const bookRemoved = await this.mongoRepository.removeBook(id);
+    return bookRemoved;
   };
 
 }
