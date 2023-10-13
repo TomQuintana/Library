@@ -6,6 +6,6 @@ const route = Router();
 route.get('/', bringAllBooks);
 route.get('/filter/:parameter', filterBook);
 route.post('/register', registerBook);
-route.put('/modify/:id', modifyBook);
+route.put('/modify/:bookId', modifyBook);
 
 export default route;

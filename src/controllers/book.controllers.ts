@@ -37,10 +37,10 @@ const filterBook = async (req: Request, res: Response) => {
 };
 
 const modifyBook = async (req: Request, res: Response) => {
-  const {id} = req.params;
-  const {body} = req;
+  const {bookId} = req.params;
+  const {body} = req.body;
 
-  const bookResultModified = await bookUseCase.modifyBookById(id, body);
+  const bookResultModified = await bookUseCase.modifyBookById(bookId, body);
 
   if (!bookResultModified) {
     return res.status(400).json({
