@@ -6,6 +6,7 @@ interface IBook{
   wasRead: boolean;
   review: string;
   bookCover: string;
+  notes: string;
 }
 
 const BookSchema = new Schema<IBook>({
@@ -29,6 +30,10 @@ const BookSchema = new Schema<IBook>({
   bookCover: {
     type: String,
     default: 'https://res.cloudinary.com/dmg3cl9dc/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1696685923/feynman-leyendo_xw0ibl.jpg',
+    required: false
+  },
+  notes : {
+    type: String,
     required: false
   }
 });
