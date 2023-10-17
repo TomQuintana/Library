@@ -38,7 +38,8 @@ const filterBook = async (req: Request, res: Response) => {
 
 const modifyBook = async (req: Request, res: Response) => {
   const {bookId} = req.params;
-  const {body} = req.body;
+  const {body} = req;
+  
 
   const bookResultModified = await bookUseCase.modifyBookById(bookId, body);
 
