@@ -8,8 +8,20 @@ export class MongoRepository {
   }
 
   async bringAllBooks() {
-    const allBooks = await bookModel.find();
-    return allBooks;
+    const readBooksStatus = {wasRead: true};
+    const unReadBooksStatus = {wasRead: false};
+
+    const readBooksPromise = bookModel.countDocuments(readBooksStatus);
+    const unReadBooksPromise = bookModel.countDocuments(unReadBooksStatus);
+    const allBooksPromise = bookModel.find();
+
+    const [readBooks, unReadBooks, allBooks] = await Promise.all([readBooksPromise, unReadBooksPromise , allBooksPromise]);
+
+    return {
+      readBooks,
+      unReadBooks,
+      allBooks
+    };
   }
 
   async findBookByTitle(title: string) {
