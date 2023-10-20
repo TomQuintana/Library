@@ -23,8 +23,8 @@ const registerBook = async (req: Request, res: Response) => {
 const bringAllBooks = async (req: Request, res: Response) => {
   
   try {
-    const allBooks = await bookUseCase.getAllBooks();
-    res.send({allBooks});
+    const booksInformation = await bookUseCase.getAllBooks();
+    res.send({booksInformation});
 
   } catch (error) {
     console.log(error);
