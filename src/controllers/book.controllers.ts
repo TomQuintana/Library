@@ -4,8 +4,10 @@ import { BookUseCase } from "../services/book.services";
 const bookUseCase = new BookUseCase();
 
 const registerBook = async (req: Request, res: Response) => {
+  const bookData = req.body;
+
   try {
-    const newBook = await bookUseCase.createNewBook(req.body);
+    const newBook = await bookUseCase.createNewBook(bookData);
 
     if (!newBook) {
       return res.status(400).json({
