@@ -1,24 +1,18 @@
 import { MongoRepository } from "../repository/mongo.repository";
+import { DataNeededForBook } from "./interfaces";
 
 export class BookUseCase {
 
   mongoRepository = new MongoRepository();
 
-  public createNewBook = async({title, author, wasRead, review, bookCover, notes}: {title: string, author: string, wasRead?: boolean, review?: string, bookCover?: string, notes: string}) => {
-    const verifyIfBookExist = await this.isBookExisted(title);
+  public createNewBook = async (bookData: DataNeededForBook) => {
+    const verifyIfBookExist = await this.isBookExisted(bookData.title);
 
     if(!verifyIfBookExist) {
       return verifyIfBookExist;
     }
 
-    const newBook = {
-      title,
-      author,
-      wasRead,
-      review,
-      bookCover,
-      notes
-    };
+    const newBook = this.generateBookForDb(bookData);
 
     const bookCreated = await this.mongoRepository.createBook(newBook);
     return bookCreated;
@@ -76,6 +70,21 @@ export class BookUseCase {
   public removeBookById = async (id: string) => {
     const bookRemoved = await this.mongoRepository.removeBook(id);
     return bookRemoved;
+  };
+
+  //TODO: change any
+  private generateBookForDb = (newBookData) => {
+
+    const book = {
+      title: newBookData.title,
+      author: newBookData.author,
+      wasRead: newBookData.wasRead,
+      review: newBookData.review,
+      bookCover: newBookData.bookCover,
+      notes: newBookData.notes
+    };
+
+    return book;
   };
 
 }
