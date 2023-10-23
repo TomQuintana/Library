@@ -1,6 +1,7 @@
 import { MongoRepository } from "../repository/mongo.repository";
 import { DataNeededForBook } from "./interfaces";
 
+//export class bookService -> llama a BookUseCase
 export class BookUseCase {
 
   mongoRepository = new MongoRepository();
@@ -72,8 +73,7 @@ export class BookUseCase {
     return bookRemoved;
   };
 
-  //TODO: change any
-  private generateBookForDb = (newBookData) => {
+  private generateBookForDb = (newBookData: DataNeededForBook) => {
 
     const book = {
       title: newBookData.title,
