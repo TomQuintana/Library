@@ -1,13 +1,14 @@
-import { MongoRepository } from "../repository/mongo.repository";
-import { DataNeededForBook } from "./interfaces";
+import { MongoRepository } from "../../repository/mongo.repository";
+import { BookHelper } from "../helpers/bookHelper";
+import { DataNeededForBook } from "../interfaces";
 
-//export class bookService -> llama a BookUseCase
 export class BookUseCase {
 
   mongoRepository = new MongoRepository();
+  bookHelper = new BookHelper();
 
   public createNewBook = async (bookData: DataNeededForBook) => {
-    const verifyIfBookExist = await this.isBookExisted(bookData.title);
+    const verifyIfBookExist = await this.bookHelper.isBookExisted(bookData.title);
 
     if(!verifyIfBookExist) {
       return verifyIfBookExist;
@@ -24,36 +25,13 @@ export class BookUseCase {
     return allBooks;
   };
 
-  private searchBookByTittle = async (tittle: string) => {
-    const resultBook = await this.mongoRepository.findBookByTitle(tittle);
-    return resultBook;
-  };
-
-  private isBookExisted = async(tittle: string) => {
-    let isBookExist = false;
-
-    const book = await this.searchBookByTittle(tittle);
-
-    book === null ? isBookExist = true: isBookExist = false;
-    
-    return isBookExist;
-  };
-
-  private searchBookId = async (bookId: string) => {
-    const bookSearchedById = await this.mongoRepository.searchBookById(bookId);
-    if(bookSearchedById === null) {
-      return false;
-    }
-    return true;
-  };
-
   public filterBookByParamenter = async (filterParameter: string) => {
     const bookResult = await this.mongoRepository.SearchBookByStatus(filterParameter);
     return bookResult;
   };
 
   public modifyBookById = async (id: string, data: object) => {
-    const verifyBookByIdFounded = await this.searchBookId(id);
+    const verifyBookByIdFounded = await this.bookHelper.searchBookId(id);
     
     if(!verifyBookByIdFounded) {
       return verifyBookByIdFounded;

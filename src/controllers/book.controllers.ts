@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
-import { BookUseCase } from "../services/book.services";
+import { BookUseCase } from "../services/Book-Service/bookUseCase";
 
 const bookUseCase = new BookUseCase();
 
 const registerBook = async (req: Request, res: Response) => {
   const bookData = req.body;
+
 
   try {
     const newBook = await bookUseCase.createNewBook(bookData);
@@ -21,6 +22,7 @@ const registerBook = async (req: Request, res: Response) => {
     console.log(error);
   }
 };
+
 
 const bringAllBooks = async (req: Request, res: Response) => {
   
