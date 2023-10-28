@@ -3,7 +3,7 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import  SwaggerUi, { SwaggerOptions} from 'swagger-ui-express';
 import morgan from 'morgan';
 import { options } from '../doc/swagger';
-import bookRoute from '../routes/book.routes';
+import bookRoute from '../infrastructure/routes/book.routes';
 import conectarDB from '../config/mongoDb';
 
 export default class Server {

@@ -1,13 +1,14 @@
-import bookModel from "../models/book.model";
+import bookModel from "../infrastructure/models/book.model";
+import { BookRepository } from "../domain/book.repository";
 
-export class MongoRepository {
+export class BookMongoRepository implements BookRepository {
 
-  async createBook(bookEntry: object)/* : Promise<any> */ {
+  async createBook(bookEntry: object) {
     const book = await bookModel.create(bookEntry);
     return book;
   }
 
-  async bringAllBooks() {
+  async listOfBooks() {
     const readBooksStatus = {wasRead: true};
     const unReadBooksStatus = {wasRead: false};
 
@@ -29,7 +30,7 @@ export class MongoRepository {
     return searchedBook;
   }
 
-  async SearchBookByStatus(status: string) {
+  async searchBookByStatus(status: string) {
     const bookByStatus = await bookModel.find({wasRead: status});
     return bookByStatus;
   }
