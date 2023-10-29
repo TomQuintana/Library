@@ -1,22 +1,7 @@
 import { BookRepository } from "../domain/book.repository";
-//import { DataNeededForBook } from "../infrastructure/services/interfaces";
-
-//NOTE: unicamente tendria que interactuar con la db y no realizar ninguna validacion ni generar objetos 
-
-export interface DataNeededForBook {
-  title: string, 
-  author: string, 
-  wasRead?: boolean, 
-  review?: string, 
-  bookCover?: string, 
-  notes: string
-}
+import { DataNeededForBook } from "../domain/book.interface";
 
 export class BookServiceUseCase {
-
-  //bookHelper = new BookHelper();
-  //bookService = new BookService();
-
   constructor(private readonly bookRepository: BookRepository) {}
 
   public getAllBooks = async() => {

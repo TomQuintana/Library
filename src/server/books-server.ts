@@ -4,7 +4,7 @@ import  SwaggerUi, { SwaggerOptions} from 'swagger-ui-express';
 import morgan from 'morgan';
 import { options } from '../doc/swagger';
 import bookRoute from '../infrastructure/routes/book.routes';
-import conectarDB from '../config/mongoDb';
+import conectarDB from './dbConfig/mongo';
 
 export default class Server {
   private app: Application;

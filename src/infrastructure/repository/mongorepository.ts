@@ -1,5 +1,5 @@
-import bookModel from "../infrastructure/models/book.model";
-import { BookRepository } from "../domain/book.repository";
+import bookModel from "../models/book.model";
+import { BookRepository } from "../../domain/book.repository";
 
 export class BookMongoRepository implements BookRepository {
 

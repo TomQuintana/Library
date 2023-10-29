@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { BookMongoRepository } from "../../repository/mongorepository";
+import { BookMongoRepository } from "../repository/mongorepository";
 import { BookServiceUseCase } from "../../aplicattion/bookServiceUseCase";
 import { BookController } from "../controllers/book.controllers";
 
